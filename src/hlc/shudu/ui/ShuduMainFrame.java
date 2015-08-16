@@ -157,6 +157,8 @@ public class ShuduMainFrame extends JFrame {
 	 * 界面初始化
 	 */
 	private void init() {
+		ImageIcon image = new ImageIcon("icon/icon.png");
+		this.setIconImage(image.getImage());
 		// 设置窗口初始大小
 		this.setSize(515, 600);
 		// 设置窗口初始位置
