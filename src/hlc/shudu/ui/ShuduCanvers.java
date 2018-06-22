@@ -2,45 +2,38 @@ package hlc.shudu.ui;
 
 import hlc.shudu.src.ShuduHelper;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dialog.ModalExclusionType;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-
 public class ShuduCanvers extends JPanel implements MouseListener {
 	ShuduCell[][] cells;
-	// µÃµ½Êı¶ÀÊı×é
+	// å¾—åˆ°æ•°ç‹¬æ•°ç»„
 	int[][] maps = new int[9][9];
 	private SelectNumFrame selectNum;
 
 	/*
-	 * Ä¬ÈÏ¹¹Ôìº¯Êı
+	 * é»˜è®¤æ„é€ å‡½æ•°
 	 */
 	public ShuduCanvers() {
 		ShuduMainFrame.usedTime = 0;
 		maps = ShuduHelper.getMap();
-		// ¼ÓÔØÊı¶ÀÇø
+		// åŠ è½½æ•°ç‹¬åŒº
 		this.setLayout(null);
 		cells = new ShuduCell[9][9];
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				// this.remove(cells[i][j]);
-				// ´´½¨µ¥Ôª¸ñ
+				// åˆ›å»ºå•å…ƒæ ¼
 				cells[i][j] = new ShuduCell();
-				// ÉèÖÃÎ»ÖÃ
+				// è®¾ç½®ä½ç½®
 				cells[i][j].setLocation(20 + i * 50 + (i / 3) * 5, 20 + j * 50
 						+ (j / 3) * 5);
 				if (passRole(ShuduMainFrame.pass)) {
 					cells[i][j].setText("" + maps[i][j]);
-					// ÉèÖÃ±³¾°ÑÕÉ«
+					// è®¾ç½®èƒŒæ™¯é¢œè‰²
 					cells[i][j].setBackground(getColor(maps[i][j]));
 					cells[i][j].setEnabled(false);
 					cells[i][j].setForeground(Color.gray);
@@ -56,53 +49,53 @@ public class ShuduCanvers extends JPanel implements MouseListener {
 	}
 
 	/*
-	 * ¼ì²éÊÇ·ñÍê³É
+	 * æ£€æŸ¥æ˜¯å¦å®Œæˆ
 	 */
 	private void checkFinish() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-					if (!check(i, j)) {
-						return;
-					}
+				if (!check(i, j)) {
+					return;
 				}
 			}
-		
-		// Í£Ö¹ÓÃ»§ÓÃÊ±¼ÆÊ±Æ÷
+		}
+
+		// åœæ­¢ç”¨æˆ·ç”¨æ—¶è®¡æ—¶å™¨
 		ShuduMainFrame.userTimeAction.stop();
-		// Çå³ıËùÓĞcell¼àÌı
+		// æ¸…é™¤æ‰€æœ‰cellç›‘å¬
 		clearAllListener();
-		// ´³¹ØÊı¼ÓÒ»
+		// é—¯å…³æ•°åŠ ä¸€
 		ShuduMainFrame.pass += 1;
 		if (ShuduMainFrame.pass > 10) {
 			int o = JOptionPane
-					.showConfirmDialog(this, "ÄúÒÑ¾­Í¨¹ØÁË£¬ÊÇ·ñÖØÍ·¿ªÊ¼£¿", "", 0);
+					.showConfirmDialog(this, "æ‚¨å·²ç»é€šå…³äº†ï¼Œæ˜¯å¦é‡å¤´å¼€å§‹ï¼Ÿ", "", 0);
 			if (o == 1) {
 				System.exit(0);
 			} else {
 				ShuduMainFrame.pass = 1;
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "¹§Ï²ÄãÍ¨¹ı±¾¹Ø£¡ÓÃÊ±£º"
-					+ ShuduMainFrame.usedTime + "Ãë\n¼´½«½øÈëÏÂÒ»¹Ø£¡");
+			JOptionPane.showMessageDialog(this, "æ­å–œä½ é€šè¿‡æœ¬å…³ï¼ç”¨æ—¶ï¼š"
+					+ ShuduMainFrame.usedTime + "ç§’\nå³å°†è¿›å…¥ä¸‹ä¸€å…³ï¼");
 		}
-		// ¸üĞÂ¹Ø¿¨ÌáÊ¾
+		// æ›´æ–°å…³å¡æç¤º
 		ShuduMainFrame.lbPass.setText("" + ShuduMainFrame.pass);
-		// ¿ªÊ¼ĞÂµÄ¹Ø¿¨
+		// å¼€å§‹æ–°çš„å…³å¡
 		reLoadCanvers();
-		// ´ò¿ªÓÃ»§ÓÃÊ±¼ÆÊ±Æ÷
+		// æ‰“å¼€ç”¨æˆ·ç”¨æ—¶è®¡æ—¶å™¨
 		ShuduMainFrame.userTimeAction.start();
 
 	}
 
 	/*
-	 * ¼ì²éÖ¸¶¨×ø±ê´¦µÄµ¥Ôª¸ñ
+	 * æ£€æŸ¥æŒ‡å®šåæ ‡å¤„çš„å•å…ƒæ ¼
 	 */
 
 	private boolean check(int i, int j) {
 		if (cells[i][j].getText().isEmpty()) {
 			return false;
 		}
-		
+
 		for (int k = 0; k < 9; k++) {
 			if (cells[i][j].getText().trim().equals(cells[i][k].getText().trim()) && j!=k) {
 				return false;
@@ -121,7 +114,7 @@ public class ShuduCanvers extends JPanel implements MouseListener {
 	}
 
 	/*
-	 * ÖØĞÂ¼ÓÔØÊı¶ÀÇø
+	 * é‡æ–°åŠ è½½æ•°ç‹¬åŒº
 	 */
 	public void reLoadCanvers() {
 		ShuduMainFrame.usedTime = 0;
@@ -129,14 +122,14 @@ public class ShuduCanvers extends JPanel implements MouseListener {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				this.remove(cells[i][j]);
-				// ´´½¨µ¥Ôª¸ñ
+				// åˆ›å»ºå•å…ƒæ ¼
 				cells[i][j] = new ShuduCell();
-				// ÉèÖÃÎ»ÖÃ
+				// è®¾ç½®ä½ç½®
 				cells[i][j].setLocation(20 + i * 50 + (i / 3) * 5, 20 + j * 50
 						+ (j / 3) * 5);
 				if (passRole(ShuduMainFrame.pass)) {
 					cells[i][j].setText("" + maps[i][j]);
-					// ÉèÖÃ±³¾°ÑÕÉ«
+					// è®¾ç½®èƒŒæ™¯é¢œè‰²
 					cells[i][j].setBackground(getColor(maps[i][j]));
 					cells[i][j].setEnabled(false);
 					cells[i][j].setForeground(Color.gray);
@@ -152,7 +145,7 @@ public class ShuduCanvers extends JPanel implements MouseListener {
 	}
 
 	/*
-	 * ¸ù¾İ¹Ø¿¨Ëæ»ú²úÉú¸ÃÎ»ÖÃÊÇ·ñÏÔÊ¾Êı×Ö
+	 * æ ¹æ®å…³å¡éšæœºäº§ç”Ÿè¯¥ä½ç½®æ˜¯å¦æ˜¾ç¤ºæ•°å­—
 	 */
 	private boolean passRole(int pass) {
 		// TODO Auto-generated method stub
@@ -160,40 +153,40 @@ public class ShuduCanvers extends JPanel implements MouseListener {
 	}
 
 	/*
-	 * ¸ù¾İÊı×Ö»ñµÃÑÕÉ«
+	 * æ ¹æ®æ•°å­—è·å¾—é¢œè‰²
 	 */
 	private Color getColor(int i) {
 		Color color = Color.pink;
 		switch (i) {
-		case 1:
-			color = new Color(255, 255, 204);
-			break;
-		case 2:
-			color = new Color(204, 255, 255);
-			break;
-		case 3:
-			color = new Color(255, 204, 204);
-			break;
-		case 4:
-			color = new Color(255, 204, 153);
-			break;
-		case 5:
-			color = new Color(204, 255, 153);
-			break;
-		case 6:
-			color = new Color(204, 204, 204);
-			break;
-		case 7:
-			color = new Color(255, 204, 204);
-			break;
-		case 8:
-			color = new Color(255, 255, 255);
-			break;
-		case 9:
-			color = new Color(153, 255, 153);
-			break;
-		default:
-			break;
+			case 1:
+				color = new Color(255, 255, 204);
+				break;
+			case 2:
+				color = new Color(204, 255, 255);
+				break;
+			case 3:
+				color = new Color(255, 204, 204);
+				break;
+			case 4:
+				color = new Color(255, 204, 153);
+				break;
+			case 5:
+				color = new Color(204, 255, 153);
+				break;
+			case 6:
+				color = new Color(204, 204, 204);
+				break;
+			case 7:
+				color = new Color(255, 204, 204);
+				break;
+			case 8:
+				color = new Color(255, 255, 255);
+				break;
+			case 9:
+				color = new Color(153, 255, 153);
+				break;
+			default:
+				break;
 		}
 		return color;
 	}
@@ -207,31 +200,31 @@ public class ShuduCanvers extends JPanel implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		int modes = e.getModifiers();
-		if ((modes & InputEvent.BUTTON3_MASK) != 0) {// µã»÷Êó±êÓÒ¼ü
-			// Çå¿Õµã»÷µ¥Ôª¸ñÉÏµÄÄÚÈİ
+		if ((modes & InputEvent.BUTTON3_MASK) != 0) {// ç‚¹å‡»é¼ æ ‡å³é”®
+			// æ¸…ç©ºç‚¹å‡»å•å…ƒæ ¼ä¸Šçš„å†…å®¹
 			((ShuduCell) e.getSource()).setText("");
-		} else if ((modes & InputEvent.BUTTON1_MASK) != 0) {// µã»÷Êó±ê×ó¼ü
-			// Èç¹ûÑ¡ÔñÊı×Ö´°¿Ú´æÔÚÔòÏú»Ù
+		} else if ((modes & InputEvent.BUTTON1_MASK) != 0) {// ç‚¹å‡»é¼ æ ‡å·¦é”®
+			// å¦‚æœé€‰æ‹©æ•°å­—çª—å£å­˜åœ¨åˆ™é”€æ¯
 			if (selectNum != null) {
 				selectNum.dispose();
 			}
-			// ĞÂ½¨Ò»¸öÑ¡Ôñ´°¿Ú
+			// æ–°å»ºä¸€ä¸ªé€‰æ‹©çª—å£
 			selectNum = new SelectNumFrame();
-			// ÉèÖÃ³ÉÄ£Ì¬´°¿Ú
+			// è®¾ç½®æˆæ¨¡æ€çª—å£
 			selectNum.setModal(true);
-			// ÉèÖÃÑ¡Ôñ´°¿ÚÔÚÏÔÊ¾Æ÷ÉÏµÄÎ»ÖÃ
+			// è®¾ç½®é€‰æ‹©çª—å£åœ¨æ˜¾ç¤ºå™¨ä¸Šçš„ä½ç½®
 			selectNum.setLocation(e.getLocationOnScreen().x,
 					e.getLocationOnScreen().y);
-			// ½«µã»÷µÄµ¥Ôª¸ñ´«µİ¸øÊı×ÖÑ¡Ôñ´°¿Ú
+			// å°†ç‚¹å‡»çš„å•å…ƒæ ¼ä¼ é€’ç»™æ•°å­—é€‰æ‹©çª—å£
 			selectNum.setCell((ShuduCell) e.getSource());
-			// ÏÔÊ¾Êı×ÖÑ¡Ôñ´°¿Ú
+			// æ˜¾ç¤ºæ•°å­—é€‰æ‹©çª—å£
 			selectNum.setVisible(true);
 		}
 		checkFinish();
 	}
 
 	/*
-	 * Çå³ıËùÓĞcellµÄµã»÷¼àÌı
+	 * æ¸…é™¤æ‰€æœ‰cellçš„ç‚¹å‡»ç›‘å¬
 	 */
 	private void clearAllListener() {
 		for (int i = 0; i < 9; i++) {

@@ -47,7 +47,7 @@ public class ShuduHelper {
 				if (canPutSum[i]==1) {
 					used[i] = -1;
 				}
-				
+
 				if (canPutSum[i] == 0) {
 					canPutSum[i] = -1;
 					used[i] = -1;
@@ -82,7 +82,7 @@ public class ShuduHelper {
 							canPutSum[i] -= 1;
 							flag = true;
 						}
-						
+
 					}
 				}
 

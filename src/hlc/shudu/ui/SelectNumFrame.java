@@ -1,31 +1,27 @@
 package hlc.shudu.ui;
 
-import java.awt.Color;
-import java.awt.Window;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
 public class SelectNumFrame extends JDialog implements MouseListener {
 	private ShuduCell cell;
-	
+
 	public void setCell(ShuduCell cell) {
 		this.cell = cell;
 	}
 
 	public SelectNumFrame(){
-		//隐藏界面上面的工具栏
+		//闅愯棌鐣岄潰涓婇潰鐨勫伐鍏锋爮
 		this.setUndecorated(true);
 		this.setSize(150, 150);
 		this.setBackground(new Color(255,204,153, 123));
 		this.setLayout(null);
 		addNum();
 	}
-	//添加数字1~9
+	//娣诲姞鏁板瓧1~9
 	private void addNum() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -37,13 +33,13 @@ public class SelectNumFrame extends JDialog implements MouseListener {
 				this.add(btn);
 			}
 		}
-		
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -59,20 +55,20 @@ public class SelectNumFrame extends JDialog implements MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
+
 }

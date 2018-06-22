@@ -1,78 +1,66 @@
 package hlc.shudu.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.Timer;
-import javax.swing.border.TitledBorder;
-
 /*
- * Êı¶ÀÖ÷´°Ìå
+ * æ•°ç‹¬ä¸»çª—ä½“
  */
 public class ShuduMainFrame extends JFrame {
 
-	public static int pass = 1; // ¹Ø¿¨
-	public static JLabel lbPass; // ÏÔÊ¾¹Ø¿¨µÄlable
-	public static long usedTime = 0; // 
-	private ShuduCanvers panelCanvers; // Ö÷ÓÎÏ·Çø
+	public static int pass = 1; // å…³å¡
+	public static JLabel lbPass; // æ˜¾ç¤ºå…³å¡çš„lable
+	public static long usedTime = 0; //
+	private ShuduCanvers panelCanvers; // ä¸»æ¸¸æˆåŒº
 	public static Timer userTimeAction;
 
 	/*
-	 * Ä¬ÈÏ¹¹Ôìº¯Êı
+	 * é»˜è®¤æ„é€ å‡½æ•°
 	 */
 	public ShuduMainFrame() {
-		// ³õÊ¼»¯·½·¨
+		// åˆå§‹åŒ–æ–¹æ³•
 		init();
-		// Ìí¼Ó×é¼ş
+		// æ·»åŠ ç»„ä»¶
 		addComponent();
-		// Ìí¼ÓÖ÷ÓÎÏ·Çø
+		// æ·»åŠ ä¸»æ¸¸æˆåŒº
 		addCanvers();
 
 	}
 
 	/*
-	 * Ìí¼ÓÖ÷ÓÎÏ·Çø
+	 * æ·»åŠ ä¸»æ¸¸æˆåŒº
 	 */
 	private void addCanvers() {
 		panelCanvers = new ShuduCanvers();
-		panelCanvers.setBorder(new TitledBorder("ÓÎÏ·Çø"));
+		panelCanvers.setBorder(new TitledBorder("æ¸¸æˆåŒº"));
 
-		// ½«Ö÷ÓÎÏ·ÇøÌí¼Óµ½´°ÌåÖĞ
+		// å°†ä¸»æ¸¸æˆåŒºæ·»åŠ åˆ°çª—ä½“ä¸­
 		this.add(panelCanvers, BorderLayout.CENTER);
 
 	}
 
 	/*
-	 * Ìí¼Ó×é¼şÇø
+	 * æ·»åŠ ç»„ä»¶åŒº
 	 */
 	private void addComponent() {
 		JPanel panelComponent = new JPanel();
-		// Ìí¼ÓÏûÏ¢Çø
+		// æ·»åŠ æ¶ˆæ¯åŒº
 		addPanelMsg(panelComponent);
-		// Ìí¼ÓÊ±¼äÇø
+		// æ·»åŠ æ—¶é—´åŒº
 		addPanelTime(panelComponent);
 
-		// ½«×é¼şÌí¼Óµ½´°Ìå¶¥²¿
+		// å°†ç»„ä»¶æ·»åŠ åˆ°çª—ä½“é¡¶éƒ¨
 		this.add(panelComponent, BorderLayout.NORTH);
 
 	}
 
 	private void addPanelTime(JPanel panelComponent) {
 		JPanel panelTime = new JPanel();
-		panelTime.setBorder(new TitledBorder("Ê±¼ä"));
+		panelTime.setBorder(new TitledBorder("æ—¶é—´"));
 		panelTime.setLayout(new GridLayout(2, 1));
 
 		final JLabel lbSysTime = new JLabel();
@@ -81,7 +69,7 @@ public class ShuduMainFrame extends JFrame {
 		panelTime.add(lbSysTime, BorderLayout.NORTH);
 		panelTime.add(lbUserTime, BorderLayout.SOUTH);
 
-		// ÉèÖÃÏµÍ³Ê±¼ä¶¨Ê±Æ÷
+		// è®¾ç½®ç³»ç»Ÿæ—¶é—´å®šæ—¶å™¨
 		Timer sysTimeAction = new Timer(500, new ActionListener() {
 
 			@Override
@@ -89,7 +77,7 @@ public class ShuduMainFrame extends JFrame {
 				long timeMillis = System.currentTimeMillis();
 				SimpleDateFormat df = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss");
-				lbSysTime.setText("    ÏµÍ³Ê±¼ä£º  " + df.format(timeMillis));
+				lbSysTime.setText("    ç³»ç»Ÿæ—¶é—´ï¼š  " + df.format(timeMillis));
 			}
 		});
 		sysTimeAction.start();
@@ -97,7 +85,7 @@ public class ShuduMainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				lbUserTime.setText("    ÄúÒÑÓÃÊ±£º  " + (++usedTime)+ " sec.");
+				lbUserTime.setText("    æ‚¨å·²ç”¨æ—¶ï¼š  " + (++usedTime)+ " sec.");
 			}
 		});
 		userTimeAction.start();
@@ -107,38 +95,38 @@ public class ShuduMainFrame extends JFrame {
 	}
 
 	/*
-	 * Ìí¼ÓÏûÏ¢Çø
+	 * æ·»åŠ æ¶ˆæ¯åŒº
 	 */
 	private void addPanelMsg(JPanel panelComponent) {
-		// panelComponent.setBorder(new TitledBorder("ÏûÏ¢Çø"));
+		// panelComponent.setBorder(new TitledBorder("æ¶ˆæ¯åŒº"));
 		panelComponent.setLayout(new GridLayout(1, 3));
 		Font font14 = new Font("", 4, 14);
 		Font font28 = new Font("", 2, 28);
 
 		JPanel panelMsg = new JPanel();
-		panelMsg.setBorder(new TitledBorder("ÏûÏ¢Çø"));
+		panelMsg.setBorder(new TitledBorder("æ¶ˆæ¯åŒº"));
 
-		JLabel lbPass1 = new JLabel("¹Ø¿¨£ºµÚ");
+		JLabel lbPass1 = new JLabel("å…³å¡ï¼šç¬¬");
 		lbPass1.setFont(font14);
 		panelMsg.add(lbPass1);
 
-		// ÏÔÊ¾¹Ø¿¨Êı
+		// æ˜¾ç¤ºå…³å¡æ•°
 		lbPass = new JLabel("" + pass);
 		lbPass.setForeground(Color.RED);
 		lbPass.setFont(font28);
 		panelMsg.add(lbPass);
 
-		JLabel lbPass2 = new JLabel("¹Ø/×Ü¹²10¹Ø");
+		JLabel lbPass2 = new JLabel("å…³/æ€»å…±10å…³");
 		lbPass2.setFont(font14);
 		panelMsg.add(lbPass2);
 
-		
+
 //		Icon icon = new ImageIcon("icon/load.png");
-//		JButton btnReLoad = new JButton("±äÉí", icon);
+//		JButton btnReLoad = new JButton("å˜èº«", icon);
 //		btnReLoad.setFont(font14);
-//		// Òş²Ø°´Å¥±³¾°
+//		// éšè—æŒ‰é’®èƒŒæ™¯
 //		btnReLoad.setContentAreaFilled(false);
-//		// È¡Ïû°´Å¥±ß¿ò
+//		// å–æ¶ˆæŒ‰é’®è¾¹æ¡†
 //		btnReLoad.setBorderPainted(false);
 //		btnReLoad.addActionListener(new ActionListener() {
 //
@@ -147,27 +135,27 @@ public class ShuduMainFrame extends JFrame {
 //				panelCanvers.reLoadCanvers();
 //			}
 //		});
-//		// ½«°´Å¥Ìí¼Óµ½ÏûÏ¢Çø
+//		// å°†æŒ‰é’®æ·»åŠ åˆ°æ¶ˆæ¯åŒº
 //		 panelMsg.add(btnReLoad);
 		panelComponent.add(panelMsg, BorderLayout.CENTER);
 
 	}
 
 	/*
-	 * ½çÃæ³õÊ¼»¯
+	 * ç•Œé¢åˆå§‹åŒ–
 	 */
 	private void init() {
 		ImageIcon image = new ImageIcon("icon/icon.png");
 		this.setIconImage(image.getImage());
-		// ÉèÖÃ´°¿Ú³õÊ¼´óĞ¡
+		// è®¾ç½®çª—å£åˆå§‹å¤§å°
 		this.setSize(515, 600);
-		// ÉèÖÃ´°¿Ú³õÊ¼Î»ÖÃ
+		// è®¾ç½®çª—å£åˆå§‹ä½ç½®
 		this.setLocation(500, 50);
-		// ÉèÖÃ´°¿Ú±êÌâ
-		this.setTitle("Êı¶ÀÓÎÏ·(By£ººîÁú³¬)");
-		// ÉèÖÃ´°Ìå²»ÔÊĞí¸Ä±ä´óĞ¡
+		// è®¾ç½®çª—å£æ ‡é¢˜
+		this.setTitle("æ•°ç‹¬æ¸¸æˆ(Byï¼šä¾¯é¾™è¶…)");
+		// è®¾ç½®çª—ä½“ä¸å…è®¸æ”¹å˜å¤§å°
 		this.setResizable(false);
-		// ÉèÖÃÄ¬ÈÏ¹Ø±Õ²Ù×÷
+		// è®¾ç½®é»˜è®¤å…³é—­æ“ä½œ
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
